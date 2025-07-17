@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Club Connect</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .signup-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        .signup-box {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .signup-box h2 {
+            margin-bottom: 25px;
+            color: #1ed2f2;
+            font-size: 2rem;
+        }
+        .signup-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .signup-box input[type="text"],
+        .signup-box input[type="password"],
+        .signup-box input[type="email"] {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        .signup-box button {
+            padding: 12px 0;
+            border-radius: 8px;
+            background: #1ed2f2;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .signup-box button:hover {
+            background: #19b8d4;
+        }
+        .signup-box .signup-error {
+            color: #e74c3c;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+        .signup-box .login-link {
+            margin-top: 18px;
+            font-size: 1rem;
+        }
+        .signup-box .login-link a {
+            color: #1ed2f2;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .signup-box .login-link a:hover {
+            color: #19b8d4;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-box">
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <input type="text" id="signup-username" name="username" placeholder="Username" required>
+                <input type="email" id="signup-email" name="email" placeholder="Email" required>
+                <input type="password" id="signup-password" name="password" placeholder="Password" required>
+                <div class="signup-error" id="signupError" style="display:none;"></div>
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="login-link">
+                Already have an account? <a href="login.html">Login</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Simple demo validation
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const errorDiv = document.getElementById('signupError');
+            if(username && email && password) {
+                window.location.href = 'index.html';
+            } else {
+                errorDiv.textContent = 'Please fill in all fields!';
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html> 
