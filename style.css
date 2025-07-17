@@ -320,6 +320,9 @@ nav ul li a.active {
     position: relative;
     opacity: 0.7;
     transform: scale(0.95);
+    height: 320px;
+    box-sizing: border-box;
+    justify-content: flex-start;
 }
 
 .club-card.active {
@@ -350,16 +353,10 @@ nav ul li a.active {
 }
 
 .club-image {
-    max-width: 100%;
-    max-height: 200px;
-    width: auto;
-    height: auto;
-    margin: 0 auto 10px auto;
-    display: block;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    height: 180px;
+    width: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    display: block;
 }
 
 .club-card:hover .club-image {
@@ -367,6 +364,10 @@ nav ul li a.active {
 }
 
 .club-info {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     padding: 10px 0;
     text-align: center;
     width: 100%;
