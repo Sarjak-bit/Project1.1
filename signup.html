@@ -5,27 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup - Club Connect</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(120deg, #e0f7fa 0%, #f8f9fa 100%);
+            min-height: 100vh;
+        }
         .signup-container {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
         .signup-box {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            max-width: 400px;
+            background: #fff;
+            padding: 48px 36px 32px 36px;
+            border-radius: 22px;
+            box-shadow: 0 8px 32px rgba(30,210,242,0.13), 0 1.5px 8px rgba(30,210,242,0.07);
+            max-width: 410px;
             width: 100%;
             text-align: center;
+            position: relative;
+        }
+        .signup-logo {
+            font-size: 2.5rem;
+            color: #1ed2f2;
+            margin-bottom: 12px;
         }
         .signup-box h2 {
-            margin-bottom: 25px;
+            margin-bottom: 18px;
             color: #1ed2f2;
-            font-size: 2rem;
+            font-size: 2.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
         .signup-box form {
             display: flex;
@@ -35,49 +49,103 @@
         .signup-box input[type="text"],
         .signup-box input[type="password"],
         .signup-box input[type="email"] {
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 1rem;
+            padding: 15px 18px;
+            border-radius: 14px;
+            border: 1.5px solid #e0e0e0;
+            font-size: 1.08rem;
+            background: #f8f9fa;
+            transition: border 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+        .signup-box input:focus {
+            border: 2px solid #1ed2f2;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(30,210,242,0.10);
         }
         .signup-box button {
-            padding: 12px 0;
-            border-radius: 8px;
-            background: #1ed2f2;
+            padding: 15px 0;
+            border-radius: 14px;
+            background: linear-gradient(90deg, #1ed2f2 0%, #0e8ed2 100%);
             color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.15rem;
+            font-weight: 700;
             border: none;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, box-shadow 0.2s, transform 0.2s;
+            box-shadow: 0 2px 12px rgba(30,210,242,0.13);
+            letter-spacing: 1px;
         }
-        .signup-box button:hover {
-            background: #19b8d4;
+        .signup-box button:hover, .signup-box button:focus {
+            background: linear-gradient(90deg, #19b8d4 0%, #1ed2f2 100%);
+            box-shadow: 0 4px 20px rgba(30,210,242,0.18);
+            transform: translateY(-2px) scale(1.03);
+            outline: none;
         }
         .signup-box .signup-error {
             color: #e74c3c;
-            font-size: 0.95rem;
+            font-size: 1rem;
             margin-bottom: 10px;
+            margin-top: -8px;
+        }
+        .signup-divider {
+            margin: 28px 0 18px 0;
+            border: none;
+            border-top: 1.5px solid #e0e0e0;
         }
         .signup-box .login-link {
-            margin-top: 18px;
-            font-size: 1rem;
+            margin-top: 0;
+            font-size: 1.05rem;
+            color: #888;
         }
         .signup-box .login-link a {
             color: #1ed2f2;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             transition: color 0.2s;
         }
         .signup-box .login-link a:hover {
             color: #19b8d4;
             text-decoration: underline;
         }
+        @media (max-width: 600px) {
+            .signup-box {
+                padding: 24px 6vw 18px 6vw;
+                max-width: 98vw;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">
+            <a href="index.html"> <img src="logo.png" alt="logo"> <span>Club Connect</span></a>
+        </div>
+        <button id="hamburger-menu" class="hamburger-menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav-list">
+            <span></span><span></span><span></span>
+        </button>
+        <ul id="nav-list">            
+            <li><a href="index.html#section1">Home</a></li>
+            <li><a href="index.html#section2">Clubs</a></li>
+            <li><a href="index.html#section3">Events</a></li>
+            <li><a href="index.html#section4">About</a></li>
+            <li><a href="signup.html">Signup</a></li>
+            <li>
+                <span id="nav-search-btn" class="nav-search-btn" role="button" tabindex="0" aria-label="Open search">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1ed2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </span>
+            </li>
+        </ul>
+    </nav>
+    <div class="main-search-bar" id="main-search-bar">
+        <input type="text" id="main-search-input" placeholder="Search clubs, events, keywords...">
+        <button id="main-search-close" style="background: none; border: none; cursor: pointer; margin-left: 10px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1ed2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+    </div>
     <div class="signup-container">
         <div class="signup-box">
+            <div class="signup-logo"><i class="fa-solid fa-user-plus"></i></div>
             <h2>Sign Up</h2>
             <form id="signupForm">
                 <input type="text" id="signup-username" name="username" placeholder="Username" required>
@@ -86,26 +154,54 @@
                 <div class="signup-error" id="signupError" style="display:none;"></div>
                 <button type="submit">Sign Up</button>
             </form>
+            <hr class="signup-divider">
             <div class="login-link">
                 Already have an account? <a href="login.html">Login</a>
             </div>
         </div>
     </div>
     <script>
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        function validateUsername(username) {
+            return /^[a-zA-Z0-9_]{5,}$/.test(username);
+        }
+        function validatePassword(password) {
+            return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(password);
+        }
         document.getElementById('signupForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Simple demo validation
-            const username = document.getElementById('signup-username').value;
-            const email = document.getElementById('signup-email').value;
+            const username = document.getElementById('signup-username').value.trim();
+            const email = document.getElementById('signup-email').value.trim();
             const password = document.getElementById('signup-password').value;
             const errorDiv = document.getElementById('signupError');
-            if(username && email && password) {
-                window.location.href = 'index.html';
-            } else {
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+            if (!username || !email || !password) {
                 errorDiv.textContent = 'Please fill in all fields!';
                 errorDiv.style.display = 'block';
+                return;
             }
+            if (!validateUsername(username)) {
+                errorDiv.textContent = 'Username must be at least 5 characters and contain only letters, numbers, or underscores.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            if (!validateEmail(email)) {
+                errorDiv.textContent = 'Please enter a valid email address.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            if (!validatePassword(password)) {
+                errorDiv.textContent = 'Password must be at least 6 characters and contain at least one letter and one number.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            // If all validations pass
+            window.location.href = 'index.html';
         });
     </script>
+    <script src="script.js"></script>
 </body>
 </html> 

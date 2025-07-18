@@ -166,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <p><strong>Time:</strong> ${time}</p>
                 <p><strong>Location:</strong> ${location}</p>
                 <p>${desc}</p>
+                <button class="participate-btn">Participate</button>
             `;
             modal.classList.add('show');
         });
