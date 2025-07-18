@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Club - Club Connect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(120deg, #e0f7fa 0%, #f8f9fa 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
+        .join-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(120deg, #e0f7fa 0%, #f8f9fa 100%);
+            position: relative;
+        }
+        .join-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"%3E%3Crect width="40" height="40" fill="%231ed2f2" fill-opacity="0.04"/%3E%3C/svg%3E');
+            z-index: 0;
+        }
+        .join-box {
+            background: #fff;
+            padding: 56px 44px 40px 44px;
+            border-radius: 32px;
+            box-shadow: 0 10px 40px rgba(30,210,242,0.18), 0 2px 12px rgba(30,210,242,0.10);
+            max-width: 560px;
+            width: 100%;
+            text-align: left;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1.5px solid #e0f7fa;
+            z-index: 1;
+            transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .join-box:hover {
+            box-shadow: 0 16px 56px rgba(30,210,242,0.22), 0 4px 20px rgba(30,210,242,0.13);
+            transform: translateY(-2px) scale(1.01);
+        }
+        .join-title {
+            text-align: center;
+            color: #1ed2f2;
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .join-desc {
+            text-align: center;
+            color: #555;
+            font-size: 1.13rem;
+            margin-bottom: 36px;
+            max-width: 90%;
+        }
+        .join-form {
+            width: 100%;
+            max-width: 440px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .join-form label {
+            font-weight: 600;
+            color: #1ed2f2;
+            margin-bottom: 6px;
+            display: block;
+            margin-top: 18px;
+            text-align: left;
+        }
+        .join-form input[type="text"],
+        .join-form input[type="email"],
+        .join-form input[type="number"],
+        .join-form select,
+        .join-form textarea {
+            width: 100%;
+            padding: 15px 18px;
+            border-radius: 16px;
+            border: 1.5px solid #e0e0e0;
+            font-size: 1.12rem;
+            background: #f8f9fa;
+            margin-bottom: 12px;
+            transition: border 0.2s, box-shadow 0.2s;
+            outline: none;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        .join-form input:focus, .join-form select:focus, .join-form textarea:focus {
+            border: 2px solid #1ed2f2;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(30,210,242,0.10);
+        }
+        .join-form textarea {
+            min-height: 70px;
+            max-height: 200px;
+        }
+        .join-form .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        .join-form .form-row > * {
+            flex: 1;
+        }
+        .join-form .radio-group {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 8px;
+            align-items: center;
+            margin-top: 8px;
+        }
+        .join-form .radio-group label {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0;
+        }
+        .join-form .agreement {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+            margin-top: 18px;
+        }
+        .join-form .agreement label {
+            color: #333;
+            font-weight: 500;
+        }
+        .join-form .submit-btn {
+            width: 100%;
+            padding: 20px 0;
+            border-radius: 18px;
+            background: linear-gradient(90deg, #1ed2f2 0%, #0e8ed2 100%);
+            color: white;
+            font-size: 1.22rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s, box-shadow 0.2s, transform 0.2s;
+            box-shadow: 0 2px 12px rgba(30,210,242,0.13);
+            letter-spacing: 1px;
+            margin-top: 18px;
+        }
+        .join-form .submit-btn:hover, .join-form .submit-btn:focus {
+            background: linear-gradient(90deg, #19b8d4 0%, #1ed2f2 100%);
+            box-shadow: 0 4px 20px rgba(30,210,242,0.18);
+            transform: translateY(-2px) scale(1.03);
+            outline: none;
+        }
+        .join-form .form-error {
+            color: #e74c3c;
+            font-size: 1.13rem;
+            margin-bottom: 14px;
+            margin-top: -8px;
+            text-align: center;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            .join-box {
+                padding: 14px 2vw 10px 2vw;
+                max-width: 98vw;
+            }
+            .join-form {
+                max-width: 100%;
+            }
+            .join-form .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="join-container">
+        <div class="join-box">
+            <div class="join-title"><i class="fa-solid fa-users"></i> Join a Club</div>
+            <div class="join-desc">Fill out the form below to join your chosen club. We look forward to welcoming you!</div>
+            <form class="join-form" id="joinForm" autocomplete="off">
+                <div class="form-error" id="formError" style="display:none;"></div>
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" required>
+
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="number" id="phone" name="phone" placeholder="Optional">
+
+                <label for="studentId">Student ID (if applicable)</label>
+                <input type="text" id="studentId" name="studentId" placeholder="Optional">
+
+                <div class="form-row">
+                    <div>
+                        <label for="department">Department / Program</label>
+                        <input type="text" id="department" name="department" placeholder="e.g., Computer Science">
+                    </div>
+                    <div>
+                        <label for="year">Year/Semester</label>
+                        <select id="year" name="year">
+                            <option value="">Select</option>
+                            <option>1st</option>
+                            <option>2nd</option>
+                            <option>3rd</option>
+                            <option>4th</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="club">Which club do you want to join?</label>
+                <select id="club" name="club" required>
+                    <option value="">Select a club</option>
+                    <option>Boston Center for Information and Technology</option>
+                    <option>Boston Center for Entrepreneurship and Leadership</option>
+                    <option>Boston Center for Music and Arts</option>
+                    <option>Boston Center for Research and Development</option>
+                    <option>Boston Center for Corporate Social Responsibility</option>
+                    <option>Boston Center for Sports</option>
+                    <option>Boston Center for Theaters</option>
+                    <option>Boston Center for Creators</option>
+                    <option>BIC Clicks</option>
+                    <option>Boston Center for Culinary</option>
+                </select>
+
+                <label for="interest">Why do you want to join this club?</label>
+                <textarea id="interest" name="interest" required></textarea>
+
+                <label for="skills">What relevant skills or experience do you have?</label>
+                <textarea id="skills" name="skills" required></textarea>
+
+                <label for="expectations">What are your expectations from this club?</label>
+                <textarea id="expectations" name="expectations" placeholder="Optional"></textarea>
+
+                <label>Are you willing to take part in club events regularly?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="regularEvents" value="Yes" required> Yes</label>
+                    <label><input type="radio" name="regularEvents" value="No"> No</label>
+                </div>
+
+                <label for="role">Preferred role (if any)?</label>
+                <select id="role" name="role">
+                    <option value="">Select</option>
+                    <option>Member</option>
+                    <option>Volunteer</option>
+                    <option>Team Leader</option>
+                </select>
+
+                <label for="freetime">Your free time during the week?</label>
+                <input type="text" id="freetime" name="freetime" placeholder="Optional">
+
+                <div class="agreement">
+                    <input type="checkbox" id="agreement" name="agreement" required>
+                    <label for="agreement">I agree to follow the club’s rules and responsibilities. *</label>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Pre-fill club if provided in URL
+        function getQueryParam(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name);
+        }
+        const clubParam = getQueryParam('club');
+        if (clubParam) {
+            const clubSelect = document.getElementById('club');
+            for (let i = 0; i < clubSelect.options.length; i++) {
+                if (clubSelect.options[i].text === decodeURIComponent(clubParam.replace(/\+/g, ' '))) {
+                    clubSelect.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+        // Form validation
+        document.getElementById('joinForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const errorDiv = document.getElementById('formError');
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const club = document.getElementById('club').value;
+            const interest = document.getElementById('interest').value.trim();
+            const skills = document.getElementById('skills').value.trim();
+            const agreement = document.getElementById('agreement').checked;
+            if (!fullName || !email || !club || !interest || !skills || !agreement) {
+                errorDiv.textContent = 'Please fill in all required fields and agree to the rules.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            if (!/^.+@.+\..+$/.test(email)) {
+                errorDiv.textContent = 'Please enter a valid email address.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            // Success (demo)
+            errorDiv.style.color = '#27ae60';
+            errorDiv.textContent = 'Application submitted successfully!';
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+                window.close();
+            }, 1800);
+        });
+    </script>
+</body>
+</html> 
