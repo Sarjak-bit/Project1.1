@@ -1,36 +1,67 @@
 // Get navbar element
 const navbar = document.querySelector('nav');
 
-// Change navbar background on scroll
-window.addEventListener('scroll', function() {
+// Change navbar background and update active nav link on scroll (throttled)
+let lastActiveSection = null;
+let ticking = false;
+
+function handleScroll() {
+    // Navbar background
     if (window.scrollY > 0) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
-});
 
-// Update active navigation link
-window.addEventListener('scroll', function() {
+    // Active nav link
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('nav ul li a');
-    
-    sections.forEach(section => {
+    let found = false;
+    for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        
-        if (window.scrollY >= (sectionTop - sectionHeight/3)) {
+        if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
             const currentId = section.getAttribute('id');
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + currentId) {
-                    link.classList.add('active');
-                }
-            });
+            if (lastActiveSection !== currentId) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentId) {
+                        link.classList.add('active');
+                    }
+                });
+                lastActiveSection = currentId;
+            }
+            found = true;
         }
-    });
+    }
+    if (!found && lastActiveSection !== null) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        lastActiveSection = null;
+    }
+
+    // Search icon color
+    const navSearchBtn = document.getElementById('nav-search-btn');
+    const navSearchIcon = navSearchBtn?.querySelector('svg');
+    if (navbar.classList.contains('scrolled')) {
+        if (navSearchIcon) navSearchIcon.style.stroke = '#333';
+    } else {
+        if (navSearchIcon) navSearchIcon.style.stroke = 'white';
+    }
+}
+
+window.addEventListener('scroll', function() {
+    if (!ticking) {
+        window.requestAnimationFrame(function() {
+            handleScroll();
+            ticking = false;
+        });
+        ticking = true;
+    }
 });
+
+// Initial call
+handleScroll();
 
 // Clubs slider functionality
 // Only for sliding cards, not for modal or card click
@@ -145,4 +176,86 @@ document.addEventListener('DOMContentLoaded', function() {
             eventModal.classList.remove('show');
         }
     });
+
+    // Nav search slide functionality
+    const navSearchBtn = document.getElementById('nav-search-btn');
+    const navSearchBar = document.getElementById('main-search-bar');
+    const navSearchInput = document.getElementById('main-search-input');
+    const navSearchClose = document.getElementById('main-search-close');
+
+    if (navSearchBtn && navSearchBar && navSearchInput && navSearchClose) {
+        function openSearchBar(e) {
+            if (e) e.preventDefault();
+            navSearchBar.classList.add('active');
+            setTimeout(() => navSearchInput.focus(), 100);
+        }
+        navSearchBtn.addEventListener('click', openSearchBar);
+        navSearchBtn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                openSearchBar(e);
+            }
+        });
+        navSearchClose.addEventListener('click', function() {
+            navSearchBar.classList.remove('active');
+            navSearchInput.value = '';
+            // Reset filter
+            document.querySelectorAll('.club-link').forEach(link => link.style.display = '');
+            document.querySelectorAll('.event-card').forEach(card => card.style.display = '');
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navSearchBar.classList.contains('active')) {
+                navSearchBar.classList.remove('active');
+                navSearchInput.value = '';
+                document.querySelectorAll('.club-link').forEach(link => link.style.display = '');
+                document.querySelectorAll('.event-card').forEach(card => card.style.display = '');
+            }
+        });
+        // Main search bar filtering
+        navSearchInput.addEventListener('input', function() {
+            const query = navSearchInput.value.trim().toLowerCase();
+            // Filter clubs
+            document.querySelectorAll('.club-link').forEach(link => {
+                const card = link.querySelector('.club-card');
+                const name = card.querySelector('h3')?.textContent.toLowerCase() || '';
+                const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+                if (name.includes(query) || desc.includes(query) || query === '') {
+                    link.style.display = '';
+                } else {
+                    link.style.display = 'none';
+                }
+            });
+            // Filter events
+            document.querySelectorAll('.event-card').forEach(card => {
+                const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+                const club = card.querySelector('.event-club')?.textContent.toLowerCase() || '';
+                const desc = card.querySelector('.event-description')?.textContent.toLowerCase() || '';
+                if (title.includes(query) || club.includes(query) || desc.includes(query) || query === '') {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger-menu');
+    const navList = document.getElementById('nav-list');
+    if (hamburger && navList) {
+        hamburger.addEventListener('click', function() {
+            const isOpen = hamburger.classList.toggle('open');
+            navList.classList.toggle('open', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        // Close menu when a nav link is clicked (on mobile)
+        navList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 900) {
+                    hamburger.classList.remove('open');
+                    navList.classList.remove('open');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    }
 });

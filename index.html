@@ -12,14 +12,28 @@
         <div class="logo">
             <a href="index.html"> <img src="logo.png" alt="logo"> <span>Club Connect</span></a>
         </div>
-        <ul>            
+        <button id="hamburger-menu" class="hamburger-menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav-list">
+            <span></span><span></span><span></span>
+        </button>
+        <ul id="nav-list">            
             <li><a href="#section1">Home</a></li>
             <li><a href="#section2">Clubs</a></li>
             <li><a href="#section3">Events</a></li>
             <li><a href="#section4">About</a></li>
             <li><a href="signup.html">Signup</a></li>
+            <li>
+                <span id="nav-search-btn" class="nav-search-btn" role="button" tabindex="0" aria-label="Open search">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1ed2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </span>
+            </li>
         </ul>
     </nav>
+    <div class="main-search-bar" id="main-search-bar">
+        <input type="text" id="main-search-input" placeholder="Search clubs, events, keywords...">
+        <button id="main-search-close" style="background: none; border: none; cursor: pointer; margin-left: 10px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1ed2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+    </div>
 
     <!-- Hero Section -->
     <section id="section1" class="section1">
