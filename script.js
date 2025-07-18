@@ -50,6 +50,7 @@ function handleScroll() {
     }
 }
 
+// Use passive event listeners for scroll
 window.addEventListener('scroll', function() {
     if (!ticking) {
         window.requestAnimationFrame(function() {
@@ -58,7 +59,7 @@ window.addEventListener('scroll', function() {
         });
         ticking = true;
     }
-});
+}, { passive: true });
 
 // Initial call
 handleScroll();
@@ -77,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let cardWidth;
     const cardsPerView = 4;
     let maxPosition;
+    let lastTransform = null;
 
     function setupSlider() {
         cardWidth = cards[0].offsetWidth + 20;
@@ -104,7 +106,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function updateSliderPosition() {
-        sliderContainer.style.transform = `translateX(${currentPosition}px)`;
+        const transformValue = `translate3d(${currentPosition}px,0,0)`;
+        if (lastTransform !== transformValue) {
+            sliderContainer.style.transform = transformValue;
+            lastTransform = transformValue;
+        }
         prevBtn.style.opacity = currentPosition < 0 ? '1' : '0.5';
         nextBtn.style.opacity = currentPosition > maxPosition ? '1' : '0.5';
     }
@@ -119,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    window.addEventListener('resize', setupSlider);
+    window.addEventListener('resize', setupSlider, { passive: true });
 
     // Event cards animation
     const eventCards = document.querySelectorAll('.event-card');

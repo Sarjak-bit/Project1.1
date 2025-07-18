@@ -1,3 +1,48 @@
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.slider-container, .modal, nav ul, .main-search-bar {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
+
+.slider-container {
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.slider-container {
+    /* Use translate3d for better GPU acceleration */
+}
+
+.slider-container {
+    /* JS: use translate3d instead of translateX for transforms */
+}
+
+.modal, .main-search-bar, nav ul {
+    transition: opacity 0.25s, top 0.25s, box-shadow 0.25s, right 0.3s;
+}
+
+@media (max-width: 900px) {
+    nav ul {
+        box-shadow: -2px 0 8px rgba(30,210,242,0.05);
+    }
+    .main-search-bar {
+        box-shadow: 0 1px 4px rgba(30,210,242,0.04);
+    }
+}
+
+button, .nav-search-btn, .hamburger-menu {
+    touch-action: manipulation;
+}
+
+body, input, button, select, textarea {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -1120,5 +1165,159 @@ nav ul li {
     }
     nav ul {
         z-index: 3000;
+    }
+}
+
+.club-banner {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+    background: linear-gradient(90deg, #1ed2f2 0%, #0e8ed2 100%);
+    margin-bottom: -60px;
+}
+.club-main {
+    max-width: 700px;
+    margin: 40px auto 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 24px rgba(30,210,242,0.10);
+    padding: 2.5rem 2rem 2rem 2rem;
+    position: relative;
+}
+.club-main {
+    padding-top: 2.5rem;
+}
+@media (max-width: 600px) {
+    .club-main { padding-top: 1.2rem; }
+}
+.club-title {
+    color: #1ed2f2;
+    font-size: 2rem;
+    margin-top: 0.5rem; /* Reduce from 60px to 0.5rem */
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-weight: 700;
+}
+.club-attributes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+    margin: 1.2rem 0 1.5rem 0;
+}
+.club-attr {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 12px 18px;
+    min-width: 120px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(30,210,242,0.04);
+    font-size: 1rem;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.club-attr svg, .club-attr i {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 6px;
+    color: #1ed2f2;
+}
+.club-welcome {
+    color: #333;
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+}
+.club-desc {
+    color: #444;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.club-section {
+    margin-bottom: 2rem;
+}
+.club-section h3 {
+    color: #1ed2f2;
+    margin-bottom: 0.5rem;
+    font-size: 1.15rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.3rem;
+}
+.club-section ul {
+    margin: 0 0 0 1.2rem;
+    padding: 0;
+    color: #444;
+}
+.club-section li {
+    margin-bottom: 0.3rem;
+}
+.club-section .motto {
+    font-style: italic;
+    color: #19b8d4;
+    margin-bottom: 0.7rem;
+}
+.leader-info {
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
+}
+.leader-info h2 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+.leader-info p {
+    color: #1ed2f2;
+    font-size: 1.1rem;
+    margin: 0;
+}
+.club-social {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin: 1.2rem 0 0.5rem 0;
+}
+.club-social a {
+    color: #1ed2f2;
+    font-size: 1.5rem;
+    transition: color 0.2s;
+}
+.club-social a:hover {
+    color: #0e8ed2;
+}
+.join-btn {
+    display: block;
+    margin: 2rem auto 0 auto;
+    background: linear-gradient(90deg, #1ed2f2 0%, #0e8ed2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 28px;
+    padding: 14px 44px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(30,210,242,0.13);
+    letter-spacing: 1px;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.join-btn:hover, .join-btn:focus {
+    background: linear-gradient(90deg, #19b8d4 0%, #1ed2f2 100%);
+    box-shadow: 0 4px 20px rgba(30,210,242,0.18);
+    transform: translateY(-2px) scale(1.03);
+    outline: none;
+}
+@media (max-width: 600px) {
+    .join-btn {
+        padding: 10px 18px;
+        font-size: 1rem;
+        border-radius: 20px;
     }
 }

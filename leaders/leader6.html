@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boston Center for Sports | Club Profile</title>
     <link rel="stylesheet" href="../style.css">
-    <style>
-        .club-main { max-width: 700px; margin: 40px auto 0 auto; background: white; border-radius: 15px; box-shadow: 0 4px 20px rgba(30,210,242,0.08); padding: 2.5rem 2rem 2rem 2rem; }
-        .club-title { color: #1ed2f2; font-size: 2rem; margin-bottom: 0.5rem; text-align: center; }
-        .club-welcome { color: #333; font-size: 1.15rem; margin-bottom: 1.5rem; text-align: center; font-weight: 500; }
-        .club-desc { color: #444; font-size: 1.1rem; margin-bottom: 2rem; text-align: center; }
-        .club-section { margin-bottom: 2rem; }
-        .club-section h3 { color: #1ed2f2; margin-bottom: 0.5rem; font-size: 1.15rem; border-bottom: 1px solid #e0e0e0; padding-bottom: 0.3rem; }
-        .club-section ul { margin: 0 0 0 1.2rem; padding: 0; color: #444; }
-        .club-section li { margin-bottom: 0.3rem; }
-        .club-section .motto { font-style: italic; color: #19b8d4; margin-bottom: 0.7rem; }
-        .leader-info { background: #f8f9fa; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); text-align: center; padding: 1.5rem 1rem; margin-bottom: 1.5rem; }
-        .leader-info h2 { color: #333; margin-bottom: 10px; font-size: 1.3rem; }
-        .leader-info p { color: #1ed2f2; font-size: 1.1rem; margin: 0; }
-        .club-footer { text-align: center; color: #aaa; font-size: 0.95rem; margin-top: 40px; padding: 1.5rem 0 0.5rem 0; }
-        .back-link { color: #1ed2f2; text-decoration: none; font-weight: 500; margin-bottom: 1.5rem; display: inline-block; }
-        .back-link:hover { text-decoration: underline; }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 </head>
 <body>
+    <div class="club-banner" style="background-image:url('../clubs/Sports.jpg'); background-size:cover;"></div>
     <main class="club-main">
         <div class="club-title">Boston Center for Sports</div>
+        <div class="club-attributes">
+            <div class="club-attr"><i class="fa-solid fa-calendar"></i> <span>Founded: 2013</span></div>
+            <div class="club-attr"><i class="fa-solid fa-users"></i> <span>Members: 180+</span></div>
+            <div class="club-attr"><i class="fa-solid fa-futbol"></i> <span>Type: Sports</span></div>
+            <div class="club-attr"><i class="fa-solid fa-location-dot"></i> <span>Sports Complex</span></div>
+            <div class="club-attr"><i class="fa-solid fa-clock"></i> <span>Meets: Sat 8-10am</span></div>
+        </div>
         <div class="club-welcome">Welcome to our club! Get ready to stay active, challenge yourself, and excel in your favorite sports. We celebrate teamwork, fitness, and the thrill of competition.</div>
         <div class="club-desc">Stay active and excel in sports</div>
+        <div class="club-section">
+            <h3>Achievements</h3>
+            <ul>
+                <li>Winners, Annual Sports Tournament 2023</li>
+                <li>Organized Intercollege Football League</li>
+                <li>Hosted Fitness Bootcamp</li>
+            </ul>
+        </div>
         <div class="club-section">
             <h3>OC Members</h3>
             <ul>
@@ -63,6 +63,13 @@
             <p>Mr. Shikhar Lamichhane</p>
             <p>Asst. Director, MBA</p>
         </div>
+        <div class="club-social">
+            <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:sports@bic.edu" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <button class="join-btn">Join Club</button>
     </main>
     <footer class="club-footer">
         &copy; 2024 Club Connect. All rights reserved.
