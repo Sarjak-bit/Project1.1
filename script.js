@@ -278,4 +278,18 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // IT Club Member Slider functionality
+    const memberSlider = document.querySelector('.member-slider-container');
+    const memberPrev = document.querySelector('.member-prev');
+    const memberNext = document.querySelector('.member-next');
+    if (memberSlider && memberPrev && memberNext) {
+        let scrollAmount = 220; // width of card + gap
+        memberPrev.addEventListener('click', function() {
+            memberSlider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+        memberNext.addEventListener('click', function() {
+            memberSlider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+    }
 });

@@ -6,6 +6,74 @@
     <title>Boston Center for Information and Technology | Club Profile</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <style>
+      body {
+        background: #f6f7f9;
+        color: #23272f;
+      }
+      .club-main {
+        background: #f6f7f9;
+      }
+      .club-title {
+        color: #1a2a4a;
+        font-weight: 800;
+        font-size: 2.1rem;
+        margin-bottom: 10px;
+      }
+      .club-attributes, .club-section, .event-section, .member-grid.simple {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 2px 8px rgba(60,60,60,0.06);
+        margin-bottom: 18px;
+        padding: 18px 16px;
+      }
+      .club-attr i {
+        color: #1ed2f2;
+      }
+      .club-section h3, .event-section h3 {
+        color: #1ed2f2;
+        font-weight: 700;
+      }
+      .club-welcome, .club-desc, .event-desc, .motto {
+        color: #23272f;
+      }
+      .mini-nav-btn {
+        background: #fff;
+        color: #1ed2f2;
+        border: 1.5px solid #e0f7fa;
+      }
+      .mini-nav-btn.active, .mini-nav-btn:hover {
+        background: #1ed2f2;
+        color: #fff;
+        border: 1.5px solid #1ed2f2;
+      }
+      .member-grid.simple .member-info h4 {
+        color: #23272f;
+      }
+      .member-grid.simple .member-card:hover {
+        border: 1.5px solid #1ed2f2;
+        box-shadow: 0 4px 16px rgba(30,210,242,0.10);
+      }
+      .member-grid.simple .member-card {
+        border: 1.5px solid #e0f7fa;
+      }
+      .member-grid.simple .member-img {
+        border: 2px solid #e0e4ea;
+      }
+      .member-grid.simple .member-card:hover .member-img {
+        border: 2px solid #e0e4ea;
+      }
+      .event-gallery img:hover {
+        box-shadow: 0 6px 24px rgba(30,210,242,0.18);
+      }
+      .event-gallery img {
+        border: 1.5px solid #e0e4ea;
+      }
+      .club-mini-nav {
+        background: none;
+        box-shadow: none;
+      }
+    </style>
 </head>
 <body>
     <div class="club-banner" style="background-image:url('../clubs/IT.webp'); background-size:cover;" loading="lazy"></div>
@@ -23,33 +91,137 @@
         <div class="club-section">
             <h3>Achievements</h3>
             <ul>
-                <li>Winners, National Hackathon 2023</li>
+                <li>Winners, National Hackathon</li>
                 <li>Published 5+ research papers</li>
                 <li>Hosted 10+ tech workshops</li>
-            </ul>
-        </div>
-        <div class="club-section">
-            <h3>OC Members</h3>
-            <ul>
-                <li>Mr. Nabin Kumar Shrestha (President)</li>
-                <li>Ms. Priya Sharma (Vice President)</li>
-                <li>Mr. Suman Joshi (Secretary)</li>
-                <li>Ms. Rina Karki (Treasurer)</li>
-                <li>Mr. Amit Singh (Event Coordinator)</li>
             </ul>
         </div>
         <div class="club-section">
             <h3>Motto</h3>
             <div class="motto">"Innovate, Integrate, Inspire."</div>
         </div>
-        <div class="club-section">
-            <h3>Past Events</h3>
-            <ul>
-                <li>Annual Hackathon 2023</li>
-                <li>Tech Talk Series: AI & Machine Learning</li>
-                <li>Workshop: Building Your First Website</li>
-            </ul>
+        <div class="club-mini-nav">
+            <button class="mini-nav-btn" data-section="members">Club Members</button>
+            <button class="mini-nav-btn" data-section="events">Past Events</button>
         </div>
+        <section id="club-select-prompt" class="club-section" style="text-align:center; color:#1ed2f2; font-size:1.1rem;">Please select a section to view details.</section>
+        <section id="club-members-section" class="club-section" style="display:none;">
+            <h3>IT Club Members</h3>
+            <div class="member-grid simple">
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Alex Gautam.jpg" alt="Alex Gautam"></div>
+                    <div class="member-info">
+                        <h4>Alex Gautam</h4>
+                        <p>Club Coordinator</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/john Kandel.jpg" alt="John Kandel"></div>
+                    <div class="member-info">
+                        <h4>John Kandel</h4>
+                        <p>Assistant Coordinator</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Sanskriti Bhusal.jpg" alt="Sanskriti Bhusal"></div>
+                    <div class="member-info">
+                        <h4>Sanskriti Bhusal</h4>
+                        <p>Marketing Head</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Apekshya Pandey.jpg" alt="Apekshya Pandey"></div>
+                    <div class="member-info">
+                        <h4>Apekshya Pandey</h4>
+                        <p>PR Head</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Elis Kandel.jpg" alt="Elis Kandel"></div>
+                    <div class="member-info">
+                        <h4>Elis Kandel</h4>
+                        <p>Finance Head</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Simon Gurung.jpg" alt="Saimon Gurung"></div>
+                    <div class="member-info">
+                        <h4>Saimon Gurung</h4>
+                        <p>Logistic Head</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Ankit Shrestha.jpg" alt="Ankit Shrestha"></div>
+                    <div class="member-info">
+                        <h4>Ankit Shrestha</h4>
+                        <p>Logistic Head</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Sandhya Shrestha.jpg" alt="Sandhya Shrestha"></div>
+                    <div class="member-info">
+                        <h4>Sandhya Shrestha</h4>
+                        <p>Technical Head</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Pawan Poudel Sharma.jpg" alt="Pawan Poudel Sharma"></div>
+                    <div class="member-info">
+                        <h4>Pawan Poudel Sharma</h4>
+                        <p>Technical Head</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Sabnam Sunar.jpg" alt="Sabnam Sunar"></div>
+                    <div class="member-info">
+                        <h4>Sabnam Sunar</h4>
+                        <p>Social Media Head</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Himanshu Bharti.jpg" alt="Himanshu Bharti"></div>
+                    <div class="member-info">
+                        <h4>Himanshu Bharti</h4>
+                        <p>Administrative Head</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Nabin Shrestha.jpg" alt="Nabin Shrestha"></div>
+                    <div class="member-info">
+                        <h4>Nabin Shrestha</h4>
+                        <p>Club Mentor</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="past-events-section" class="club-section event-section" style="display:none;">
+            <h3>BIC Hackathon</h3>
+            <div class="event-gallery">
+                <img src="../It Club Event Hackathon/WhatsApp Image 2025-07-27 at 15.58.39_7121e973.jpg" alt="BIC Hackathon 1">
+                <img src="../It Club Event Hackathon/IMG-20250727-WA0020.jpg" alt="BIC Hackathon 2">
+                <img src="../It Club Event Hackathon/IMG-20250727-WA0019.jpg" alt="BIC Hackathon 3">
+                <img src="../It Club Event Hackathon/IMG-20250727-WA0018.jpg" alt="BIC Hackathon 4">
+                <img src="../It Club Event Hackathon/IMG-20250727-WA0017.jpg" alt="BIC Hackathon 5">
+                <img src="../It Club Event Hackathon/IMG-20250727-WA0016.jpg" alt="BIC Hackathon 6">
+                <img src="../It Club Event Hackathon/IMG-20250727-WA0015.jpg" alt="BIC Hackathon 7">
+                <img src="../It Club Event Hackathon/IMG-20250727-WA0014.jpg" alt="BIC Hackathon 8">
+            </div>
+            <div class="event-desc">
+                <p><strong>BIC Hackathon</strong> is a time bounded event organized by Boston Center for IT in collaboration with Boston International College. In this event, teams collaborate to develop & build a prototype, and pitch ideas. The best three teams will be rewarded.</p>
+            </div>
+            <hr style="margin:32px 0; border:0; border-top:1.5px solid #e0e4ea;">
+            <h3>IT Club IT Bahas</h3>
+            <div class="event-gallery">
+                <img src="../IT Club Events IT Bahas/IMG-20250727-WA0028.jpg" alt="IT Bahas 1">
+                <img src="../IT Club Events IT Bahas/IMG-20250727-WA0027.jpg" alt="IT Bahas 2">
+                <img src="../IT Club Events IT Bahas/IMG-20250727-WA0026.jpg" alt="IT Bahas 3">
+                <img src="../IT Club Events IT Bahas/IMG-20250727-WA0025.jpg" alt="IT Bahas 4">
+            </div>
+            <div class="event-desc">
+                <p><strong>Digital Bahas</strong> by Boston Center for IT is an interactive event focused on tech discussions, digital trends, and IT insights. It brings together professionals and learners to share knowledge and explore new ideas in the digital world.</p>
+            </div>
+        </section>
+       
         <div class="club-section">
             <h3>Future Goals</h3>
             <ul>
@@ -59,9 +231,9 @@
             </ul>
         </div>
         <div class="leader-info">
-            <h2>Club Leader</h2>
-            <p>Mr. Nabin Kumar Shrestha</p>
-            <p>Asst. Director, UG</p>
+            <h2>Club Coordinator</h2>
+            <p>Alex Gautam</p>
+            
         </div>
         <div class="club-social">
             <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
@@ -74,5 +246,24 @@
     <footer class="club-footer">
         &copy; 2024 Club Connect. All rights reserved.
     </footer>
+    <script>
+document.querySelectorAll('.mini-nav-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.mini-nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('club-members-section').style.display = btn.dataset.section === 'members' ? '' : 'none';
+    document.getElementById('past-events-section').style.display = btn.dataset.section === 'events' ? '' : 'none';
+    document.getElementById('club-select-prompt').style.display = (btn.dataset.section === 'members' || btn.dataset.section === 'events') ? 'none' : '';
+    // Smooth scroll to the section if visible
+    setTimeout(() => {
+      if (btn.dataset.section === 'members') {
+        document.getElementById('club-members-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (btn.dataset.section === 'events') {
+        document.getElementById('past-events-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
+  });
+});
+</script>
 </body>
 </html> 
