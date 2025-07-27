@@ -4,6 +4,16 @@ const navbar = document.querySelector('nav');
 // Change navbar background and update active nav link on scroll (throttled)
 let lastActiveSection = null;
 let ticking = false;
+let sectionPositions = [];
+
+function cacheSectionPositions() {
+    const sections = document.querySelectorAll('section');
+    sectionPositions = Array.from(sections).map(section => ({
+        id: section.getAttribute('id'),
+        top: section.offsetTop,
+        height: section.clientHeight
+    }));
+}
 
 function handleScroll() {
     // Navbar background
@@ -14,23 +24,19 @@ function handleScroll() {
     }
 
     // Active nav link
-    const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('nav ul li a');
     let found = false;
-    for (let i = 0; i < sections.length; i++) {
-        const section = sections[i];
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
-            const currentId = section.getAttribute('id');
-            if (lastActiveSection !== currentId) {
+    for (let i = 0; i < sectionPositions.length; i++) {
+        const { id, top, height } = sectionPositions[i];
+        if (window.scrollY >= (top - height / 3)) {
+            if (lastActiveSection !== id) {
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + currentId) {
+                    if (link.getAttribute('href') === '#' + id) {
                         link.classList.add('active');
                     }
                 });
-                lastActiveSection = currentId;
+                lastActiveSection = id;
             }
             found = true;
         }
@@ -50,6 +56,11 @@ function handleScroll() {
     }
 }
 
+window.addEventListener('resize', () => {
+    cacheSectionPositions();
+    handleScroll();
+}, { passive: true });
+
 // Use passive event listeners for scroll
 window.addEventListener('scroll', function() {
     if (!ticking) {
@@ -62,6 +73,7 @@ window.addEventListener('scroll', function() {
 }, { passive: true });
 
 // Initial call
+cacheSectionPositions();
 handleScroll();
 
 // Clubs slider functionality
