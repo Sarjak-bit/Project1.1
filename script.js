@@ -82,7 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function setupSlider() {
         cardWidth = cards[0].offsetWidth + 20;
-        maxPosition = -(cards.length - cardsPerView) * cardWidth;
+        // Fix: Ensure last card is fully visible
+        maxPosition = Math.min(0, sliderContainer.offsetWidth - cards.length * cardWidth);
         updateSliderPosition();
         updateActiveCards();
     }

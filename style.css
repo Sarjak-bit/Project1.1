@@ -1,5 +1,5 @@
 html {
-    scroll-behavior: smooth;
+    
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -156,12 +156,12 @@ nav input#nav-search:focus, nav select#nav-club-filter:focus {
 
 /* Hero Section */
 .section1 {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(pang-yuhao-_kd5cxwZOK4-unsplash.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(pang-yuhao-_kd5cxwZOK4-unsplash.webp);
     background-size: cover;
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: scroll;
     padding-top: 80px;
     color: white;
     position: relative;
@@ -293,11 +293,12 @@ nav input#nav-search:focus, nav select#nav-club-filter:focus {
 
 /* Clubs Section */
 .section2 {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #edecec 0%, #d5d7d7 100%);
     min-height: 100vh;
     padding: 100px 20px;
     overflow: hidden;
     position: relative;
+    
 }
 
 .section2::before {
@@ -377,7 +378,7 @@ nav input#nav-search:focus, nav select#nav-club-filter:focus {
 }
 
 .club-card {
-    background: transparent;
+    background: white;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -530,7 +531,7 @@ nav input#nav-search:focus, nav select#nav-club-filter:focus {
 
 /* Events Section */
 .section3 {
-    background-color: #f0f2f5;
+    background: linear-gradient(135deg, #edecec 0%, #d5d7d7 100%);
     min-height: 100vh;
     padding: 100px 20px;
 }
@@ -778,7 +779,7 @@ nav input#nav-search:focus, nav select#nav-club-filter:focus {
 
 /* About Section */
 .section4 {
-    background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+    background: linear-gradient(135deg, #edecec 0%, #d5d7d7 100%);
     min-height: 60vh;
     padding: 100px 20px;
     display: flex;
