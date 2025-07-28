@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-
+    
     const eventObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -181,17 +181,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (closeEventModal) {
-        closeEventModal.addEventListener('click', function() {
-            eventModal.classList.remove('show');
-        });
+    closeEventModal.addEventListener('click', function() {
+        eventModal.classList.remove('show');
+    });
     }
 
     if (eventModal) {
-        eventModal.addEventListener('click', function(e) {
-            if (e.target === eventModal) {
-                eventModal.classList.remove('show');
-            }
-        });
+    eventModal.addEventListener('click', function(e) {
+        if (e.target === eventModal) {
+            eventModal.classList.remove('show');
+        }
+    });
     }
 
     // Nav search slide functionality

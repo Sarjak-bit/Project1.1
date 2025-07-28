@@ -319,9 +319,18 @@
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.mini-nav-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                document.getElementById('club-members-section').style.display = btn.dataset.section === 'members' ? '' : 'none';
-                document.getElementById('past-events-section').style.display = btn.dataset.section === 'events' ? 'none' : '';
-                document.getElementById('club-select-prompt').style.display = (btn.dataset.section === 'members' || btn.dataset.section === 'events') ? 'none' : '';
+                
+                // Show/hide sections based on button clicked
+                if (btn.dataset.section === 'members') {
+                    document.getElementById('club-members-section').style.display = 'block';
+                    document.getElementById('past-events-section').style.display = 'none';
+                    document.getElementById('club-select-prompt').style.display = 'none';
+                } else if (btn.dataset.section === 'events') {
+                    document.getElementById('club-members-section').style.display = 'none';
+                    document.getElementById('past-events-section').style.display = 'block';
+                    document.getElementById('club-select-prompt').style.display = 'none';
+                }
+                
                 // Smooth scroll to the section if visible
                 setTimeout(() => {
                     if (btn.dataset.section === 'members') {

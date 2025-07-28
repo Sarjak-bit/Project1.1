@@ -6,6 +6,7 @@
     <title>Join Club - Club Connect</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <style>
         body {
             font-family: 'Montserrat', Arial, sans-serif;
@@ -241,7 +242,7 @@
 
                 <label>Are you willing to take part in club events regularly?</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="regularEvents" value="Yes" required> Yes</label>
+                    <label><input type="radio" name="regularEvents" value="Yes"> Yes</label>
                     <label><input type="radio" name="regularEvents" value="No"> No</label>
                 </div>
 
@@ -266,52 +267,166 @@
         </div>
     </div>
     <script>
-        // Pre-fill club if provided in URL
-        function getQueryParam(name) {
-            const url = new URL(window.location.href);
-            return url.searchParams.get(name);
+        // Initialize EmailJS
+        (function() {
+            emailjs.init('ttYgXEATO66fU-uHQ');
+        })();
+
+        // Test EmailJS connection
+        function testEmailJS() {
+            console.log('Testing EmailJS connection...');
+            const testData = {
+                user_name: 'Test User',
+                club_name: 'Test Club',
+                email: 'test@example.com'
+            };
+            
+            emailjs.send('service_zf1886v', 'template_hjswarj', testData)
+                .then(function(response) {
+                    console.log('EmailJS Test Success:', response);
+                    alert('EmailJS is working correctly!');
+                })
+                .catch(function(error) {
+                    console.error('EmailJS Test Error:', error);
+                    alert('EmailJS Error: ' + (error.text || 'Unknown error'));
+                });
         }
-        const clubParam = getQueryParam('club');
-        if (clubParam) {
-            const clubSelect = document.getElementById('club');
-            for (let i = 0; i < clubSelect.options.length; i++) {
-                if (clubSelect.options[i].text === decodeURIComponent(clubParam.replace(/\+/g, ' '))) {
-                    clubSelect.selectedIndex = i;
-                    break;
-                }
+
+    // Pre-fill club if provided in URL
+    function getQueryParam(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+    const clubParam = getQueryParam('club');
+    if (clubParam) {
+        const clubSelect = document.getElementById('club');
+        for (let i = 0; i < clubSelect.options.length; i++) {
+            if (clubSelect.options[i].text === decodeURIComponent(clubParam.replace(/\+/g, ' '))) {
+                clubSelect.selectedIndex = i;
+                break;
             }
         }
-        // Form validation
-        document.getElementById('joinForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const errorDiv = document.getElementById('formError');
-            errorDiv.style.display = 'none';
-            errorDiv.textContent = '';
-            const fullName = document.getElementById('fullName').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const club = document.getElementById('club').value;
-            const interest = document.getElementById('interest').value.trim();
-            const skills = document.getElementById('skills').value.trim();
-            const agreement = document.getElementById('agreement').checked;
-            if (!fullName || !email || !club || !interest || !skills || !agreement) {
-                errorDiv.textContent = 'Please fill in all required fields and agree to the rules.';
-                errorDiv.style.display = 'block';
-                return;
-            }
-            if (!/^.+@.+\..+$/.test(email)) {
-                errorDiv.textContent = 'Please enter a valid email address.';
-                errorDiv.style.display = 'block';
-                return;
-            }
-            // Success (demo)
-            errorDiv.style.color = '#27ae60';
-            errorDiv.textContent = 'Application submitted successfully!';
+    }
+
+    // Form validation and EmailJS integration
+    document.getElementById('joinForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const errorDiv = document.getElementById('formError');
+        errorDiv.style.display = 'none';
+        errorDiv.textContent = '';
+
+        // Collect form values
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const club = document.getElementById('club').value;
+        const interest = document.getElementById('interest').value.trim();
+        const skills = document.getElementById('skills').value.trim();
+        const agreement = document.getElementById('agreement').checked;
+
+        // Basic validation - only check required fields
+        if (!fullName || !email || !club || !interest || !skills || !agreement) {
+            errorDiv.textContent = 'Please fill in all required fields and agree to the rules.';
             errorDiv.style.display = 'block';
-            setTimeout(() => {
-                errorDiv.style.display = 'none';
-                window.close();
-            }, 1800);
-        });
-    </script>
+            return;
+        }
+        if (!/^.+@.+\..+$/.test(email)) {
+            errorDiv.textContent = 'Please enter a valid email address.';
+            errorDiv.style.display = 'block';
+            return;
+        }
+
+        // Prepare form data for EmailJS with all fields (optional ones can be empty)
+        const formData = {
+            user_name: fullName,
+            club_name: club,
+            email: email,
+            phone: document.getElementById('phone').value.trim() || 'Not provided',
+            studentId: document.getElementById('studentId').value.trim() || 'Not provided',
+            department: document.getElementById('department').value.trim() || 'Not provided',
+            year: document.getElementById('year').value || 'Not specified',
+            interest: interest,
+            skills: skills,
+            expectations: document.getElementById('expectations').value.trim() || 'Not specified',
+            regularEvents: document.querySelector('input[name="regularEvents"]:checked')?.value || 'Not specified',
+            role: document.getElementById('role').value || 'Not specified',
+            freetime: document.getElementById('freetime').value.trim() || 'Not specified'
+        };
+
+        // Show loading state
+        const submitBtn = document.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Submitting...';
+        submitBtn.disabled = true;
+
+        // First, try to send only the user confirmation email
+        emailjs.send('service_zf1886v', 'template_hjswarj', formData)
+            .then(function(response) {
+                console.log('User email sent successfully:', response);
+                
+                // If user email succeeds, try to send owner notification using the same template
+                const ownerFormData = {
+                    user_name: fullName,
+                    club_name: club,
+                    email: email,
+                    phone: document.getElementById('phone').value.trim() || 'Not provided',
+                    studentId: document.getElementById('studentId').value.trim() || 'Not provided',
+                    department: document.getElementById('department').value.trim() || 'Not provided',
+                    year: document.getElementById('year').value || 'Not specified',
+                    interest: interest,
+                    skills: skills,
+                    expectations: document.getElementById('expectations').value.trim() || 'Not specified',
+                    regularEvents: document.querySelector('input[name="regularEvents"]:checked')?.value || 'Not specified',
+                    role: document.getElementById('role').value || 'Not specified',
+                    freetime: document.getElementById('freetime').value.trim() || 'Not specified',
+                    owner_email: 'sarjaksunar@gmail.com',
+                    application_date: new Date().toLocaleString(),
+                    user_email: email
+                };
+                
+                return emailjs.send('service_zf1886v', 'template_hjswarj', ownerFormData);
+            })
+            .then(function(response) {
+                console.log('Owner email sent successfully:', response);
+                
+                errorDiv.style.color = '#27ae60';
+                errorDiv.textContent = 'Application submitted successfully! You will receive a confirmation email shortly.';
+                errorDiv.style.display = 'block';
+                
+                // Reset form
+                document.getElementById('joinForm').reset();
+                
+                setTimeout(() => {
+                    errorDiv.style.display = 'none';
+                    window.close();
+                }, 3000);
+            })
+            .catch(function(error) {
+                console.error('EmailJS Error Details:', error);
+                
+                // More specific error messages
+                let errorMessage = 'Failed to submit application. ';
+                if (error.text) {
+                    if (error.text.includes('template')) {
+                        errorMessage += 'Email template not found. Please contact support.';
+                    } else if (error.text.includes('service')) {
+                        errorMessage += 'Email service not configured. Please contact support.';
+                    } else {
+                        errorMessage += 'Please try again later.';
+                    }
+                } else {
+                    errorMessage += 'Please check your internet connection and try again.';
+                }
+                
+                errorDiv.style.color = '#e74c3c';
+                errorDiv.textContent = errorMessage;
+                errorDiv.style.display = 'block';
+            })
+            .finally(function() {
+                // Reset button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+    });
+</script>
 </body>
 </html> 
