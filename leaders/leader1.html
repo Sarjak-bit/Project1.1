@@ -8,66 +8,69 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <style>
       body {
-        background: #f6f7f9;
-        color: #23272f;
+        background: #f8fafc;
+        color: #2d3748;
       }
       .club-main {
-        background: #f6f7f9;
+        background: #f8fafc;
       }
       .club-title {
-        color: #1a2a4a;
-        font-weight: 800;
+        color: #1e3a8a;
+        font-weight: 700;
         font-size: 2.1rem;
         margin-bottom: 10px;
       }
       .club-attributes, .club-section, .event-section, .member-grid.simple {
-        background: #fff;
-        border-radius: 14px;
-        box-shadow: 0 2px 8px rgba(60,60,60,0.06);
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         margin-bottom: 18px;
         padding: 18px 16px;
+        border: 1px solid #e2e8f0;
       }
       .club-attr i {
-        color: #1ed2f2;
+        color: #3b82f6;
       }
       .club-section h3, .event-section h3 {
-        color: #1ed2f2;
-        font-weight: 700;
+        color: #3b82f6;
+        font-weight: 600;
       }
       .club-welcome, .club-desc, .event-desc, .motto {
-        color: #23272f;
+        color: #4a5568;
       }
       .mini-nav-btn {
-        background: #fff;
-        color: #1ed2f2;
-        border: 1.5px solid #e0f7fa;
+        background: #ffffff;
+        color: #3b82f6;
+        border: 1px solid #dbeafe;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
       }
       .mini-nav-btn.active, .mini-nav-btn:hover {
-        background: #1ed2f2;
-        color: #fff;
-        border: 1.5px solid #1ed2f2;
+        background: #3b82f6;
+        color: #ffffff;
+        border: 1px solid #3b82f6;
       }
       .member-grid.simple .member-info h4 {
-        color: #23272f;
+        color: #2d3748;
       }
       .member-grid.simple .member-card:hover {
-        border: 1.5px solid #1ed2f2;
-        box-shadow: 0 4px 16px rgba(30,210,242,0.10);
+        border: 1px solid #3b82f6;
+        box-shadow: 0 2px 8px rgba(59,130,246,0.08);
       }
       .member-grid.simple .member-card {
-        border: 1.5px solid #e0f7fa;
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
       }
       .member-grid.simple .member-img {
-        border: 2px solid #e0e4ea;
+        border: 1px solid #e2e8f0;
       }
       .member-grid.simple .member-card:hover .member-img {
-        border: 2px solid #e0e4ea;
+        border: 1px solid #e2e8f0;
       }
       .event-gallery img:hover {
-        box-shadow: 0 6px 24px rgba(30,210,242,0.18);
+        box-shadow: 0 3px 12px rgba(59,130,246,0.12);
       }
       .event-gallery img {
-        border: 1.5px solid #e0e4ea;
+        border: 1px solid #e2e8f0;
       }
       .club-mini-nav {
         background: none;
@@ -101,13 +104,20 @@
             <div class="motto">"Innovate, Integrate, Inspire."</div>
         </div>
         <div class="club-mini-nav">
-            <button class="mini-nav-btn" data-section="members">Club Members</button>
+            <button class="mini-nav-btn" data-section="members">Club Team</button>
             <button class="mini-nav-btn" data-section="events">Past Events</button>
         </div>
         <section id="club-select-prompt" class="club-section" style="text-align:center; color:#1ed2f2; font-size:1.1rem;">Please select a section to view details.</section>
         <section id="club-members-section" class="club-section" style="display:none;">
-            <h3>IT Club Members</h3>
+            <h3>IT Club Team</h3>
             <div class="member-grid simple">
+                <div class="member-card">
+                    <div class="member-img"><img src="../IT Club Members/Nabin Shrestha.jpg" alt="Nabin Shrestha"></div>
+                    <div class="member-info">
+                        <h4>Nabin Shrestha</h4>
+                        <p>Club Mentor</p>
+                    </div>
+                </div>
                 <div class="member-card">
                     <div class="member-img"><img src="../IT Club Members/Alex Gautam.jpg" alt="Alex Gautam"></div>
                     <div class="member-info">
@@ -185,13 +195,6 @@
                         <p>Administrative Head</p>
                     </div>
                 </div>
-                <div class="member-card">
-                    <div class="member-img"><img src="../IT Club Members/Nabin Shrestha.jpg" alt="Nabin Shrestha"></div>
-                    <div class="member-info">
-                        <h4>Nabin Shrestha</h4>
-                        <p>Club Mentor</p>
-                    </div>
-                </div>
             </div>
         </section>
         <section id="past-events-section" class="club-section event-section" style="display:none;">
@@ -219,6 +222,19 @@
             </div>
             <div class="event-desc">
                 <p><strong>Digital Bahas</strong> by Boston Center for IT is an interactive event focused on tech discussions, digital trends, and IT insights. It brings together professionals and learners to share knowledge and explore new ideas in the digital world.</p>
+            </div>
+            <hr style="margin:32px 0; border:0; border-top:1.5px solid #e0e4ea;">
+            <h3>FreeCodeCamp</h3>
+            <div class="event-gallery">
+                <img src="../IT Club Free Code Camp/IMG-20250727-WA0034.jpg" alt="FreeCodeCamp 1">
+                <img src="../IT Club Free Code Camp/IMG-20250727-WA0033.jpg" alt="FreeCodeCamp 2">
+                <img src="../IT Club Free Code Camp/IMG-20250727-WA0032.jpg" alt="FreeCodeCamp 3">
+                <img src="../IT Club Free Code Camp/IMG-20250727-WA0031.jpg" alt="FreeCodeCamp 4">
+                <img src="../IT Club Free Code Camp/IMG-20250727-WA0030.jpg" alt="FreeCodeCamp 5">
+                <img src="../IT Club Free Code Camp/IMG-20250727-WA0029.jpg" alt="FreeCodeCamp 6">
+            </div>
+            <div class="event-desc">
+                <p><strong>FreeCodeCamp</strong>, organized by Boston Center for IT, provides collaborative support and opportunities to learn coding. It offers free workshops and projects where you can work with others, build skills, and grow your tech network.</p>
             </div>
         </section>
        
