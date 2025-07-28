@@ -166,32 +166,63 @@ document.addEventListener('DOMContentLoaded', function() {
         eventObserver.observe(card);
     });
 
-    // Modal functionality
+    // Event Modal functionality
     const eventModal = document.getElementById('eventModal');
-    const participateBtn = document.querySelector('.participate-btn');
+    const eventModalBody = document.getElementById('eventModalBody');
     const closeEventModal = document.querySelector('.close-event-modal');
 
-    if (participateBtn) {
-        participateBtn.addEventListener('click', function(e) {
+    // Event card click functionality
+    eventCards.forEach(card => {
+        card.addEventListener('click', function(e) {
             e.preventDefault();
-            if (eventModal) {
-                eventModal.classList.add('show');
+            
+            // Get event details from the card
+            const eventTitle = card.querySelector('h3').textContent;
+            const eventClub = card.querySelector('.event-club').textContent;
+            const eventTime = card.querySelector('.event-time').textContent;
+            const eventLocation = card.querySelector('.event-location').textContent;
+            const eventDescription = card.querySelector('.event-description').textContent;
+            const eventDate = card.querySelector('.event-date');
+            const eventDay = eventDate.querySelector('.day').textContent;
+            const eventMonth = eventDate.querySelector('.month').textContent;
+            
+            // Populate modal with event details
+            eventModalBody.innerHTML = `
+                <h2>${eventTitle}</h2>
+                <p><strong>Organized by:</strong> ${eventClub}</p>
+                <p><strong>Date:</strong> ${eventDay} ${eventMonth}</p>
+                <p><strong>Time:</strong> ${eventTime}</p>
+                <p><strong>Location:</strong> ${eventLocation}</p>
+                <p><strong>Description:</strong> ${eventDescription}</p>
+                <button class="participate-btn">Participate</button>
+            `;
+            
+            // Show the modal
+            eventModal.classList.add('show');
+            
+            // Add click event to the participate button
+            const participateBtn = eventModalBody.querySelector('.participate-btn');
+            if (participateBtn) {
+                participateBtn.addEventListener('click', function() {
+                    alert('Thank you for your interest! You have successfully registered for this event.');
+                    eventModal.classList.remove('show');
+                });
             }
+        });
+    });
+
+    if (closeEventModal) {
+        closeEventModal.addEventListener('click', function() {
+            eventModal.classList.remove('show');
         });
     }
 
-    if (closeEventModal) {
-    closeEventModal.addEventListener('click', function() {
-        eventModal.classList.remove('show');
-    });
-    }
-
     if (eventModal) {
-    eventModal.addEventListener('click', function(e) {
-        if (e.target === eventModal) {
-            eventModal.classList.remove('show');
-        }
-    });
+        eventModal.addEventListener('click', function(e) {
+            if (e.target === eventModal) {
+                eventModal.classList.remove('show');
+            }
+        });
     }
 
     // Nav search slide functionality

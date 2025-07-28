@@ -266,31 +266,12 @@
             </form>
         </div>
     </div>
-    <script>
-        // Initialize EmailJS
-        (function() {
-            emailjs.init('ttYgXEATO66fU-uHQ');
-        })();
-
-        // Test EmailJS connection
-        function testEmailJS() {
-            console.log('Testing EmailJS connection...');
-            const testData = {
-                user_name: 'Test User',
-                club_name: 'Test Club',
-                email: 'test@example.com'
-            };
-            
-            emailjs.send('service_zf1886v', 'template_hjswarj', testData)
-                .then(function(response) {
-                    console.log('EmailJS Test Success:', response);
-                    alert('EmailJS is working correctly!');
-                })
-                .catch(function(error) {
-                    console.error('EmailJS Test Error:', error);
-                    alert('EmailJS Error: ' + (error.text || 'Unknown error'));
-                });
-        }
+    // ...existing code...
+<script>
+    // Initialize EmailJS
+    (function() {
+        emailjs.init('ttYgXEATO66fU-uHQ');
+    })();
 
     // Pre-fill club if provided in URL
     function getQueryParam(name) {
@@ -358,43 +339,28 @@
         submitBtn.textContent = 'Submitting...';
         submitBtn.disabled = true;
 
-        // First, try to send only the user confirmation email
+        // 1. Send welcome email to student
         emailjs.send('service_zf1886v', 'template_hjswarj', formData)
             .then(function(response) {
-                console.log('User email sent successfully:', response);
-                
-                // If user email succeeds, try to send owner notification using the same template
-                const ownerFormData = {
-                    user_name: fullName,
-                    club_name: club,
-                    email: email,
-                    phone: document.getElementById('phone').value.trim() || 'Not provided',
-                    studentId: document.getElementById('studentId').value.trim() || 'Not provided',
-                    department: document.getElementById('department').value.trim() || 'Not provided',
-                    year: document.getElementById('year').value || 'Not specified',
-                    interest: interest,
-                    skills: skills,
-                    expectations: document.getElementById('expectations').value.trim() || 'Not specified',
-                    regularEvents: document.querySelector('input[name="regularEvents"]:checked')?.value || 'Not specified',
-                    role: document.getElementById('role').value || 'Not specified',
-                    freetime: document.getElementById('freetime').value.trim() || 'Not specified',
-                    owner_email: 'sarjaksunar@gmail.com',
-                    application_date: new Date().toLocaleString(),
-                    user_email: email
+                console.log('Student email sent successfully:', response);
+
+                // 2. Send notification email to admin
+                const adminFormData = {
+                    ...formData,
+                    admin_email: 'sarjaksunar@gmail.com', // Make sure your admin template uses this variable
+                    application_date: new Date().toLocaleString()
                 };
-                
-                return emailjs.send('service_zf1886v', 'template_hjswarj', ownerFormData);
+                return emailjs.send('service_zf1886v', 'template_d4n847l', adminFormData);
             })
             .then(function(response) {
-                console.log('Owner email sent successfully:', response);
-                
+                console.log('Admin email sent successfully:', response);
+
                 errorDiv.style.color = '#27ae60';
                 errorDiv.textContent = 'Application submitted successfully! You will receive a confirmation email shortly.';
                 errorDiv.style.display = 'block';
-                
-                // Reset form
+
                 document.getElementById('joinForm').reset();
-                
+
                 setTimeout(() => {
                     errorDiv.style.display = 'none';
                     window.close();
@@ -402,8 +368,7 @@
             })
             .catch(function(error) {
                 console.error('EmailJS Error Details:', error);
-                
-                // More specific error messages
+
                 let errorMessage = 'Failed to submit application. ';
                 if (error.text) {
                     if (error.text.includes('template')) {
@@ -416,17 +381,17 @@
                 } else {
                     errorMessage += 'Please check your internet connection and try again.';
                 }
-                
+
                 errorDiv.style.color = '#e74c3c';
                 errorDiv.textContent = errorMessage;
                 errorDiv.style.display = 'block';
             })
             .finally(function() {
-                // Reset button state
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             });
     });
 </script>
+// ...existing code...
 </body>
 </html> 
