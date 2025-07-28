@@ -262,24 +262,76 @@
     <footer class="club-footer">
         &copy; 2024 Club Connect. All rights reserved.
     </footer>
+    <script src="../script.js"></script>
     <script>
-document.querySelectorAll('.mini-nav-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.mini-nav-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('club-members-section').style.display = btn.dataset.section === 'members' ? '' : 'none';
-    document.getElementById('past-events-section').style.display = btn.dataset.section === 'events' ? '' : 'none';
-    document.getElementById('club-select-prompt').style.display = (btn.dataset.section === 'members' || btn.dataset.section === 'events') ? 'none' : '';
-    // Smooth scroll to the section if visible
-    setTimeout(() => {
-      if (btn.dataset.section === 'members') {
-        document.getElementById('club-members-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else if (btn.dataset.section === 'events') {
-        document.getElementById('past-events-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 50);
-  });
-});
-</script>
+        // Auto-open sections based on URL parameters
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const section = urlParams.get('section');
+            
+            if (section === 'members') {
+                // Open Club Team section
+                const membersBtn = document.querySelector('[data-section="members"]');
+                const membersSection = document.getElementById('club-members-section');
+                const promptSection = document.getElementById('club-select-prompt');
+                
+                if (membersBtn && membersSection) {
+                    // Update button states
+                    document.querySelectorAll('.mini-nav-btn').forEach(btn => btn.classList.remove('active'));
+                    membersBtn.classList.add('active');
+                    
+                    // Show members section, hide others
+                    promptSection.style.display = 'none';
+                    document.getElementById('past-events-section').style.display = 'none';
+                    membersSection.style.display = 'block';
+                    
+                    // Smooth scroll to members section
+                    setTimeout(() => {
+                        membersSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            } else if (section === 'events') {
+                // Open Past Events section
+                const eventsBtn = document.querySelector('[data-section="events"]');
+                const eventsSection = document.getElementById('past-events-section');
+                const promptSection = document.getElementById('club-select-prompt');
+                
+                if (eventsBtn && eventsSection) {
+                    // Update button states
+                    document.querySelectorAll('.mini-nav-btn').forEach(btn => btn.classList.remove('active'));
+                    eventsBtn.classList.add('active');
+                    
+                    // Show events section, hide others
+                    promptSection.style.display = 'none';
+                    document.getElementById('club-members-section').style.display = 'none';
+                    eventsSection.style.display = 'block';
+                    
+                    // Smooth scroll to events section
+                    setTimeout(() => {
+                        eventsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
+            }
+        });
+
+        // Original button click functionality
+        document.querySelectorAll('.mini-nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.mini-nav-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('club-members-section').style.display = btn.dataset.section === 'members' ? '' : 'none';
+                document.getElementById('past-events-section').style.display = btn.dataset.section === 'events' ? 'none' : '';
+                document.getElementById('club-select-prompt').style.display = (btn.dataset.section === 'members' || btn.dataset.section === 'events') ? 'none' : '';
+                // Smooth scroll to the section if visible
+                setTimeout(() => {
+                    if (btn.dataset.section === 'members') {
+                        document.getElementById('club-members-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else if (btn.dataset.section === 'events') {
+                        document.getElementById('past-events-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 50);
+            });
+        });
+    </script>
 </body>
 </html> 
