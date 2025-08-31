@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Connect - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            background: white;
+            font-size: 1rem;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tab:hover:not(.active) {
+            background: #f8f9fa;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .create-post {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .create-post h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .file-upload input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border: 2px dashed #e1e5e9;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .file-upload:hover .file-upload-label {
+            border-color: #667eea;
+            background: #f0f2ff;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .events-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .event-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .event-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .event-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .event-content {
+            flex: 1;
+        }
+
+        .event-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .event-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-description {
+            color: #777;
+            line-height: 1.5;
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .edit-btn {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #138496;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #28a745;
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .event-item {
+                flex-direction: column;
+            }
+            
+            .event-image {
+                width: 100%;
+                height: 200px;
+            }
+
+            .container {
+                padding: 0 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-chart-bar"></i> Club Connect Admin</h1>
+        <div class="header-actions">
+            <span id="user-greeting">Welcome, Admin!</span>
+            <a href="/admin/logout" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('events')">
+                <i class="fas fa-calendar-alt"></i> Manage Events
+            </button>
+            <button class="tab" onclick="switchTab('clubs')">
+                <i class="fas fa-users"></i> Manage Clubs
+            </button>
+        </div>
+
+        <!-- Events Tab -->
+        <div id="events-tab" class="tab-content active">
+            <div class="create-post">
+                <h2><i class="fas fa-plus-circle"></i> Create New Event</h2>
+                <form id="event-form" enctype="multipart/form-data">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="event-title">Event Title</label>
+                            <input type="text" id="event-title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-club">Club</label>
+                            <select id="event-club" name="club" required>
+                                <option value="">Select a club...</option>
+                                <option value="Boston Center for Information and Technology">IT Center</option>
+                                <option value="Boston Center for Entrepreneurship and Leadership">Entrepreneurship Center</option>
+                                <option value="Boston Center for Music and Arts">Music & Arts Center</option>
+                                <option value="Boston Center for Research and Development">Research Center</option>
+                                <option value="Boston Center for Corporate Social Responsibility">CSR Center</option>
+                                <option value="Boston Center for Sports">Sports Center</option>
+                                <option value="Boston Center for Theaters">Theater Center</option>
+                                <option value="Boston Center for Creators">Creators Center</option>
+                                <option value="BIC Clicks">BIC Clicks</option>
+                                <option value="Boston Center for Culinary">Culinary Center</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-date">Date</label>
+                            <input type="text" id="event-date" name="date" placeholder="e.g., 15" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-month">Month</label>
+                            <select id="event-month" name="month" required>
+                                <option value="">Select month...</option>
+                                <option value="JAN">January</option>
+                                <option value="FEB">February</option>
+                                <option value="MAR">March</option>
+                                <option value="APR">April</option>
+                                <option value="MAY">May</option>
+                                <option value="JUN">June</option>
+                                <option value="JUL">July</option>
+                                <option value="AUG">August</option>
+                                <option value="SEP">September</option>
+                                <option value="OCT">October</option>
+                                <option value="NOV">November</option>
+                                <option value="DEC">December</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-time">Time</label>
+                            <input type="text" id="event-time" name="time" placeholder="e.g., ⏰ 2:00 PM - 4:00 PM" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-location">Location</label>
+                            <input type="text" id="event-location" name="location" placeholder="e.g., 📍 Room 301, Computer Lab" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="event-description">Description</label>
+                            <textarea id="event-description" name="description" placeholder="Describe your event..." required></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Event Image</label>
+                            <div class="file-upload">
+                                <input type="file" id="event-image" name="image" accept="image/*">
+                                <div class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Click to upload image or drag & drop</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Create Event
+                    </button>
+                </form>
+            </div>
+
+            <div class="events-list" id="events-list">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading events...
+                </div>
+            </div>
+        </div>
+
+        <!-- Clubs Tab -->
+        <div id="clubs-tab" class="tab-content">
+            <div class="create-post">
+                <h2><i class="fas fa-plus-circle"></i> Create New Club</h2>
+                <form id="club-form" enctype="multipart/form-data">
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="club-name">Club Name</label>
+                            <input type="text" id="club-name" name="name" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="club-description">Description</label>
+                            <textarea id="club-description" name="description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="club-leader-page">Leader Page (optional)</label>
+                            <input type="text" id="club-leader-page" name="leader_page" placeholder="e.g., leaders/leader1.html">
+                        </div>
+                        <div class="form-group">
+                            <label>Club Image</label>
+                            <div class="file-upload">
+                                <input type="file" id="club-image" name="image" accept="image/*" required>
+                                <div class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Click to upload image</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Create Club
+                    </button>
+                </form>
+            </div>
+
+            <div class="events-list" id="clubs-list">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading clubs...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Event Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <h2><i class="fas fa-edit"></i> Edit Event</h2>
+            <form id="edit-event-form" enctype="multipart/form-data">
+                <input type="hidden" id="edit-event-id">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="edit-event-title">Event Title</label>
+                        <input type="text" id="edit-event-title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-event-club">Club</label>
+                        <select id="edit-event-club" name="club" required>
+                            <option value="Boston Center for Information and Technology">IT Center</option>
+                            <option value="Boston Center for Entrepreneurship and Leadership">Entrepreneurship Center</option>
+                            <option value="Boston Center for Music and Arts">Music & Arts Center</option>
+                            <option value="Boston Center for Research and Development">Research Center</option>
+                            <option value="Boston Center for Corporate Social Responsibility">CSR Center</option>
+                            <option value="Boston Center for Sports">Sports Center</option>
+                            <option value="Boston Center for Theaters">Theater Center</option>
+                            <option value="Boston Center for Creators">Creators Center</option>
+                            <option value="BIC Clicks">BIC Clicks</option>
+                            <option value="Boston Center for Culinary">Culinary Center</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-event-date">Date</label>
+                        <input type="text" id="edit-event-date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-event-month">Month</label>
+                        <select id="edit-event-month" name="month" required>
+                            <option value="JAN">January</option>
+                            <option value="FEB">February</option>
+                            <option value="MAR">March</option>
+                            <option value="APR">April</option>
+                            <option value="MAY">May</option>
+                            <option value="JUN">June</option>
+                            <option value="JUL">July</option>
+                            <option value="AUG">August</option>
+                            <option value="SEP">September</option>
+                            <option value="OCT">October</option>
+                            <option value="NOV">November</option>
+                            <option value="DEC">December</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-event-time">Time</label>
+                        <input type="text" id="edit-event-time" name="time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-event-location">Location</label>
+                        <input type="text" id="edit-event-location" name="location" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="edit-event-description">Description</label>
+                        <textarea id="edit-event-description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Event Image (leave empty to keep current)</label>
+                        <div class="file-upload">
+                            <input type="file" id="edit-event-image" name="image" accept="image/*">
+                            <div class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Click to upload new image</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button type="submit" class="submit-btn" style="flex: 1;">
+                        <i class="fas fa-save"></i> Update Event
+                    </button>
+                    <button type="button" class="action-btn" style="background: #6c757d; color: white; padding: 1rem 2rem; border-radius: 10px;" onclick="closeEditModal()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="/admin-script.js"></script>
+</body>
+</html>
